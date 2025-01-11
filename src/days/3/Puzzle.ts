@@ -6,7 +6,7 @@ const checkSlope = (map: string[], xSlope: number, ySlope: number): number => {
     if (x >= map[y].length) {
       x -= map[y].length;
     }
-    if (map[y][x] == '#') {
+    if (map[y][x] === '#') {
       trees++;
     }
     x += xSlope; y += ySlope;

@@ -17,14 +17,14 @@ const second = (input: string) => {
   const nums = input.split('\n').map((i) => parseInt(i));
   for (const n1 of nums) {
     for (const n2 of nums) {
-      if (n1 == n2 || n1 + n2 > 2020) {
+      if (n1 === n2 || n1 + n2 > 2020) {
         continue;
       }
       for (const n3 of nums) {
-        if (n1 == n3 || n2 == n3) {
+        if (n1 === n3 || n2 === n3) {
           continue;
         }
-        if (n1 + n2 + n3 == 2020) {
+        if (n1 + n2 + n3 === 2020) {
           return n1 * n2 * n3;
         }
       }

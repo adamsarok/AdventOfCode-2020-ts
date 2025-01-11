@@ -36,8 +36,8 @@ const second = (input: string) => {
   let okPasses = 0;
   for (const l of input.split('\n')) {
     const pass = parsePass(l);
-    const first = pass.pass[pass.range1 - 1] == pass.char;
-    const second = pass.pass[pass.range2 - 1] == pass.char;
+    const first = pass.pass[pass.range1 - 1] === pass.char;
+    const second = pass.pass[pass.range2 - 1] === pass.char;
     if (first != second) {
       okPasses++;
     }
