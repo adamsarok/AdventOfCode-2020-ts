@@ -1,6 +1,6 @@
 type Vec = {
-    X: number;
-    Y: number;
+  x: number;
+  y: number;
 };
 
 export default Vec;
