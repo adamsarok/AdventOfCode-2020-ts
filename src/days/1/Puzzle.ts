@@ -13,7 +13,6 @@ const first = (input: string) => {
 const expectedFirstSolution = 514579;
 
 const second = (input: string) => {
-
   const nums = input.split('\n').map((i) => parseInt(i));
   for (const n1 of nums) {
     for (const n2 of nums) {

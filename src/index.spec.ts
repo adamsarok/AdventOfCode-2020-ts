@@ -27,7 +27,7 @@ describe('AoC test runner', () => {
         expectedFirstSolution,
         second,
         expectedSecondSolution,
-      }: Puzzle = await import(`./days/${puzzleName}/Puzzle`);
+      }: Puzzle = await import(`./days/${puzzleName}/Puzzle.ts`);
 
       expect(first(exampleOneInput)).toBe(expectedFirstSolution);
       expect(second(exampleTwoInput)).toBe(expectedSecondSolution);
