@@ -10,15 +10,12 @@ const first = (input: string) => {
   width = seats[0].length;
   let iterations = 0;
   let lastState: number[] = [];
-  while (iterations <= 1) {
-    const r = iterate(seats);
-    console.log(`iter:${iterations} ->`);
-    for (const row of seats) {
-      console.log(row);
-    }
+  while (iterations <= 10000) {
+    const r = iterate();
     iterations++;
+    console.log(`iter:${iterations}:${r.length}`);
     if (arraysEqual(lastState, r)) {
-      return iterations;
+      return r.length;
     }
     lastState = r;
   }
@@ -49,45 +46,42 @@ function arraysEqual(arr1: number[], arr2: number[]): boolean {
 }
 
 function iterate() {
-  const result: string[][] = [];
   const occupiedIndices: number[] = [];
   let index = 0;
+  const previousSeats = seats.map((row) => [...row]);
   for (let x = 0; x < width; x++) {
-    const row: string[] = [];
     for (let y = 0; y < height; y++) {
-      switch (seats[y][x]) {
-        case '.':
-          row.push('.');
-          break;
+      switch (previousSeats[x][y]) {
         case 'L':
-          if (getNeighbourOccupiedCnt(x, y) === 0) {
-            row.push('#');
+          if (getNeighbourOccupiedCnt(previousSeats, x, y) === 0) {
+            seats[x][y] = '#';
             occupiedIndices.push(index);
           } else {
-            row.push('L');
+            seats[x][y] = 'L';
           }
           break;
         case '#':
-          if (getNeighbourOccupiedCnt(x, y) >= 4) {
-            row.push('L');
+          if (getNeighbourOccupiedCnt(previousSeats, x, y) >= 4) {
+            seats[x][y] = 'L';
           } else {
-            row.push('#');
+            seats[x][y] = '#';
             occupiedIndices.push(index);
           }
           break;
       }
       index++;
     }
-    result.push(row);
   }
-  // console.log(result);
-  seats = result;
   return occupiedIndices;
 }
 
 const neighbors = getNeighbourVecs();
 
-function getNeighbourOccupiedCnt(x: number, y: number) {
+function getNeighbourOccupiedCnt(
+  previousSeats: string[][],
+  x: number,
+  y: number
+) {
   let occupied = 0;
   for (const n of neighbors) {
     const xx = x + n.x;
@@ -97,11 +91,8 @@ function getNeighbourOccupiedCnt(x: number, y: number) {
       xx < width &&
       yy >= 0 &&
       yy < height &&
-      seats[y][x] === '#'
+      previousSeats[xx][yy] === '#'
     ) {
-      if (x === 5 && y === 0) {
-        console.log(`${xx}:${yy}`);
-      }
       occupied++;
     }
   }
